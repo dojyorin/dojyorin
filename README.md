@@ -1,17 +1,19 @@
 # ようこそ！
 たいしたものはないけど、ゆっくりしていってね！
 
-- [Portfolio](https://dojyorin.github.io/dojyorin) ... WIP!!
+**SNS/Blog**
+- [Twitter](https://twitter.com/dojyorin)
+- [Qiita](https://qiita.com/dojyorin)
 
-### WebApps
-ウェブブラウザで動くアプリケーションをGitHubPagesにて公開しています。
+**Portfolio**
+- [AboutMe](https://dojyorin.github.io/dojyorin)
 
-- [Web Zipper](https://dojyorin.github.io/webapps/stable/zipper.html) ... ZIPを圧縮/展開
-- [Web Cryptor](https://dojyorin.github.io/webapps/stable/cryptor.html) ... ファイル暗号化
-- [Web RNG](https://dojyorin.github.io/webapps/stable/rng.html) ... 任意バイト数の乱数生成
+作成中です...WIP!!
 
-### Arduino
-各種Arduinoライブラリを公開しています。
+**WebApplication**
+- [WebApps](https://dojyorin.github.io/webapps)
+
+ウェブブラウザで動く便利ツールなどのアプリケーションをGitHubPagesにて公開しています。
 
 <!--
 **dojyorin/dojyorin** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
