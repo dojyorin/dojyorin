@@ -6,14 +6,7 @@
 - [Qiita](https://qiita.com/dojyorin)
 
 **Portfolio**
-- [AboutMe](https://dojyorin.github.io/dojyorin)
-
-作成中です...WIP!!
-
-**WebApplication**
-- [WebApps](https://dojyorin.github.io/webapps)
-
-ウェブブラウザで動く便利ツールなどのアプリケーションをGitHubPagesにて公開しています。
+- [AboutMe](https://dojyorin.github.io/dojyorin) ... WIP!!
 
 <!--
 **dojyorin/dojyorin** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.

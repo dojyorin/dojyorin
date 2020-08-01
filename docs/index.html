@@ -8,6 +8,13 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kosugi|M+PLUS+1p&amp;subset=japanese">
 
+        <script>
+            if(/trident\/|edge\//i.test(navigator.userAgent)){
+                alert("お使いのブラウザには対応しておりません。");
+                window.stop();
+            }
+        </script>
+
         <script src="https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vuetify@latest/dist/vuetify.min.js"></script>
 
@@ -18,23 +25,115 @@
         <div id="vue">
             <v-app>
                 <v-app-bar app dark height="52" color="light-blue darken-2">
-                    <v-toolbar-title>AboutMe</v-toolbar-title>
+                    <v-app-bar-nav-icon v-if="$vuetify.breakpoint.xsOnly" @click="toggleNav(true)"></v-app-bar-nav-icon>
+
+                    <v-btn text class="text-subtitle-1 pl-1 override_button_case" @click="setPage('Top')">
+                        <v-avatar size="44">
+                            <v-img src=""></v-img>
+                        </v-avatar>
+
+                        <v-toolbar-title>AboutMe</v-toolbar-title>
+                    </v-btn>
+
+                    <v-spacer></v-spacer>
+
+                    <v-toolbar-items v-if="$vuetify.breakpoint.smAndUp">
+                        <template v-for="page in pages">
+                            <v-btn text class="text-subtitle-1 override_button_case" @click="setPage(page)">{{page}}</v-btn>
+                        </template>
+                    </v-toolbar-items>
                 </v-app-bar>
 
-                <v-navigation-drawer expand-on-hover>
+                <v-navigation-drawer app disable-resize-watcher v-model="nav">
+                    <v-toolbar dark flat height="52" color="light-blue darken-2">
+                        <v-icon class="pr-3">mdi-menu</v-icon>
 
+                        <v-toolbar-title>Menu</v-toolbar-title>
+
+                        <v-spacer></v-spacer>
+
+                        <v-btn icon @click="toggleNav(false)">
+                            <v-icon large>mdi-close</v-icon>
+                        </v-btn>
+                    </v-toolbar>
+
+                    <v-list>
+                        <template v-for="page in pages">
+                            <v-list-item @click="setPage(page)">
+                                <v-list-item-content>
+                                    <v-list-item-title>{{page}}</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </template>
+                    </v-list>
                 </v-navigation-drawer>
 
                 <v-main>
-                    <v-container fluid>
-                        <v-row dense>
-                            <v-col cols sm="12">
-                                <v-card flat color="transparent">
-                                    <v-card-title></v-card-title>
-                                </v-card>
-                            </v-col>
-                        </v-row>
-                    </v-container>
+                    <v-window touchless v-model="state">
+                        <v-window-item value="Top">
+                            <v-container fluid>
+                                <v-row dense>
+                                    <v-col cols sm="12">
+                                        <v-card>
+                                            <v-card-title>Top</v-card-title>
+
+                                            <v-card-text>
+                                                Top
+                                            </v-card-text>
+                                        </v-card>
+                                    </v-col>
+                                </v-row>
+                            </v-container>
+                        </v-window-item>
+
+                        <v-window-item value="About">
+                            <v-container fluid>
+                                <v-row dense>
+                                    <v-col cols sm="12">
+                                        <v-card>
+                                            <v-card-title>About</v-card-title>
+
+                                            <v-card-text>
+                                                About
+                                            </v-card-text>
+                                        </v-card>
+                                    </v-col>
+                                </v-row>
+                            </v-container>
+                        </v-window-item>
+
+                        <v-window-item value="News">
+                            <v-container fluid>
+                                <v-row dense>
+                                    <v-col cols sm="12">
+                                        <v-card>
+                                            <v-card-title>News</v-card-title>
+
+                                            <v-card-text>
+                                                News
+                                            </v-card-text>
+                                        </v-card>
+                                    </v-col>
+                                </v-row>
+                            </v-container>
+                        </v-window-item>
+
+                        <v-window-item value="Info">
+                            <v-container fluid>
+                                <v-row dense>
+                                    <v-col cols sm="12">
+                                        <v-card>
+                                            <v-card-title>Info</v-card-title>
+
+                                            <v-card-text>
+                                                Info
+                                            </v-card-text>
+                                        </v-card>
+                                    </v-col>
+                                </v-row>
+                            </v-container>
+                        </v-window-item>
+                    </v-window>
                 </v-main>
             </v-app>
         </div>
@@ -44,17 +143,37 @@
         .v-application{
             font-family: "M PLUS 1p", "Kosugi" !important;
         }
+        .override_button_case{
+            text-transform: unset;
+        }
     </style>
 
     <script>
-        new Vue({
+        const vue = new Vue({
             el: "#vue",
             vuetify: new Vuetify(),
 
             data(){
                 return {
-                    nav: false
+                    nav: false,
+                    state: "",
+                    pages: ["About", "News", "Info"]
                 };
+            },
+
+            async mounted(){
+                this.setPage("Top");
+            },
+
+            methods: {
+                setPage(page){
+                    this.state = page;
+                    this.toggleNav(false);
+                },
+
+                toggleNav(state){
+                    this.nav = state;
+                }
             }
         });
     </script>
