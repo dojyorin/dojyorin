@@ -1,0 +1,7 @@
+{
+    "*": "/404",
+    "/": "/top",
+    "/blog": "/blog",
+    "/about": "/about",
+    "/news": "/news"
+}
