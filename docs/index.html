@@ -73,18 +73,17 @@
             transformResponse(data){
                 const component = new DOMParser().parseFromString(data, "text/html");
 
-                const template = component.head.getElementsByTagName("template")[0]?.innerHTML;
+                const template = component.head.getElementsByTagName("template")[0]?.innerHTML || "";
                 const script = component.head.getElementsByTagName("script")[0]?.innerText;
                 const style = component.head.getElementsByTagName("style")[0];
 
                 const untemplate = new DOMParser().parseFromString(template.trim().replace(/^<template>/i, "").replace(/<\/template>$/i, ""), "text/html");
-                const scope = Array.from(crypto.getRandomValues(new Uint8Array(6))).map(byte => byte.toString(16)).join("");
 
                 if(style){
-                    const scoped = document.createElement("style");
-                    const scope = Array.from(crypto.getRandomValues(new Uint8Array(6))).map(byte => byte.toString(16)).join("");
+                    const styles = document.createElement("style");
 
                     if(style.getAttributeNames().some(attribute => attribute === "scoped")){
+                        const scope = Array.from(crypto.getRandomValues(new Uint8Array(6))).map(byte => byte.toString(16)).join("");
                         const selectors = Array.from(new Set(style.innerText.match(/\.[a-zA-Z_][a-zA-Z0-9_\-]*/ig)));
 
                         for(const selector of selectors){
@@ -94,12 +93,12 @@
                             }
                         }
 
-                        scoped.innerText = selectors.reduce((style, selector) => style.replace(new RegExp(selector, "ig"), `${selector}_${scope}`), style.innerText);
-                        document.head.appendChild(scoped);
+                        styles.innerText = selectors.reduce((style, selector) => style.replace(new RegExp(selector, "ig"), `${selector}_${scope}`), style.innerText);
+                        document.head.appendChild(styles);
                     }
                     else{
-                        scoped.innerText = style.innerText;
-                        document.head.appendChild(scoped);
+                        styles.innerText = style.innerText;
+                        document.head.appendChild(styles);
                     }
                 }
 
