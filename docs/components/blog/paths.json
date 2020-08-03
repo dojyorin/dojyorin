@@ -1,3 +1,9 @@
 {
-    "/title": "1596356989"
+    "parents": {
+        "virtual": "/blog",
+        "physical": "/blog"
+    },
+    "paths": {
+        "/title": "/1596356989"
+    }
 }

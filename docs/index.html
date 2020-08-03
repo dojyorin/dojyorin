@@ -34,7 +34,7 @@
                 </v-app-bar>
 
                 <v-navigation-drawer app disable-resize-watcher v-model="$store.state.nav">
-                    <v-toolbar dark flat height="52" color="pink lighten-2">
+                    <v-toolbar dark height="52" color="light-blue darken-2">
                         <v-icon class="pr-3">mdi-menu</v-icon>
 
                         <v-toolbar-title>Menu</v-toolbar-title>
@@ -93,16 +93,27 @@
             }
         });
 
-        const loadPaths = axios.create({
+        const loadMap = axios.create({
             method: "get",
-            baseURL: "./components"
+            baseURL: "./components",
+            responseType: "json",
+            transformResponse({parents, paths}){
+                return Object.entries(paths).map(([virtual, physical]) => [`${parents.virtual}${virtual}`, `${parents.physical}${physical}`]);
+            }
         });
 
-        (async()=>{
-            const {data: rootPaths} = await loadPaths("/paths.json");
-            const {data: blogPaths} = await loadPaths("/blog/paths.json");
+        const vue = (async()=>{
+            const maps = [
+                "/paths.json",
+                "/blog/paths.json"
+            ];
 
-            const vue = new Vue({
+            const paths = [];
+            for await(const {data} of maps.map(map => loadMap(map))){
+                paths.push(...data);
+            }
+
+            return new Vue({
                 el: "#vue",
                 vuetify: new Vuetify(),
 
@@ -113,33 +124,18 @@
                 },
 
                 router: new VueRouter({
-                    routes: [
-                        ...Object.entries(rootPaths).map(([vMap, pMap])=>{
-                            return {
-                                path: vMap,
-                                async component(res){
-                                    const {data} = await loadComponent(`${pMap}.vue`);
-                                    res({
-                                        template: data.template(),
-                                        mixins: [data.script()]
-                                    });
-                                }
-                            };
-                        }),
-
-                        ...Object.entries(blogPaths).map(([vMap, pMap])=>{
-                            return {
-                                path: `/blog${vMap}`,
-                                async component(res){
-                                    const {data} = await loadComponent(`/blog/${pMap}.vue`);
-                                    res({
-                                        template: data.template(),
-                                        mixins: [data.script()]
-                                    });
-                                }
+                    routes: paths.map(([virtual, physical])=>{
+                        return {
+                            path: virtual,
+                            async component(res){
+                                const {data} = await loadComponent(`${physical}.vue`);
+                                res({
+                                    template: data.template(),
+                                    mixins: [data.script()]
+                                });
                             }
-                        })
-                    ]
+                        };
+                    })
                 }),
 
                 store: new Vuex.Store({

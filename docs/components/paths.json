@@ -1,7 +1,13 @@
 {
-    "*": "/404",
-    "/": "/top",
-    "/blog": "/blog",
-    "/about": "/about",
-    "/news": "/news"
+    "parents": {
+        "virtual": "",
+        "physical": ""
+    },
+    "paths": {
+        "*": "/404",
+        "/": "/top",
+        "/blog": "/blog",
+        "/about": "/about",
+        "/news": "/news"
+    }
 }
