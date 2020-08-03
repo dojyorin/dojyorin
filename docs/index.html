@@ -14,7 +14,6 @@
         <script src="https://cdn.jsdelivr.net/npm/vuetify@latest/dist/vuetify.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios@latest/dist/axios.min.js"></script>
 
-
         <title>AboutMe</title>
     </head>
 
@@ -72,22 +71,44 @@
             baseURL: "./components",
             responseType: "text",
             transformResponse(data){
-                const doc = new DOMParser().parseFromString(data, "text/html");
+                const component = new DOMParser().parseFromString(data, "text/html");
 
-                const template = doc.head.getElementsByTagName("template")[0]?.innerHTML;
-                const script = doc.head.getElementsByTagName("script")[0]?.innerText
-                const style = doc.head.getElementsByTagName("style")[0];
+                const template = component.head.getElementsByTagName("template")[0]?.innerHTML;
+                const script = component.head.getElementsByTagName("script")[0]?.innerText;
+                const style = component.head.getElementsByTagName("style")[0];
+
+                const untemplate = new DOMParser().parseFromString(template.trim().replace(/^<template>/i, "").replace(/<\/template>$/i, ""), "text/html");
+                const scope = Array.from(crypto.getRandomValues(new Uint8Array(6))).map(byte => byte.toString(16)).join("");
 
                 if(style){
-                    document.head.appendChild(style);
+                    const scoped = document.createElement("style");
+                    const scope = Array.from(crypto.getRandomValues(new Uint8Array(6))).map(byte => byte.toString(16)).join("");
+
+                    if(style.getAttributeNames().some(attribute => attribute === "scoped")){
+                        const selectors = Array.from(new Set(style.innerText.match(/\.[a-zA-Z_][a-zA-Z0-9_\-]*/ig)));
+
+                        for(const selector of selectors){
+                            const undot = selector.replace(/^\./, "");
+                            for(const {classList} of untemplate.body.getElementsByClassName(undot)){
+                                classList.replace(undot, `${undot}_${scope}`);
+                            }
+                        }
+
+                        scoped.innerText = selectors.reduce((style, selector) => style.replace(new RegExp(selector, "ig"), `${selector}_${scope}`), style.innerText);
+                        document.head.appendChild(scoped);
+                    }
+                    else{
+                        scoped.innerText = style.innerText;
+                        document.head.appendChild(scoped);
+                    }
                 }
 
                 return {
                     template(){
-                        return template ? template : "";
+                        return template ? `<template>${untemplate.body.innerHTML}</template>` : "";
                     },
                     script(){
-                        return script ? new Function(script.trim().replace(/^(export\s+default|module\.exports\s*?=)\s*?/i, "return"))() : {};
+                        return script ? new Function(script.trim().replace(/^(export\s+default|module\.exports\s*?=)\s*/i, "return"))() : {};
                     }
                 };
             }
