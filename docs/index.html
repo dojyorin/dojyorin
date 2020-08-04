@@ -32,7 +32,7 @@
                     </v-btn>
                 </v-app-bar>
 
-                <v-navigation-drawer app disable-resize-watcher v-model="$store.state.nav">
+                <v-navigation-drawer app disable-resize-watcher v-model="nav">
                     <v-toolbar dark height="52" color="light-blue darken-2">
                         <v-icon class="pr-3">mdi-menu</v-icon>
 
@@ -77,12 +77,11 @@
                 const script = component.head.getElementsByTagName("script")[0]?.innerText || "";
                 const style = component.head.getElementsByTagName("style")[0];
 
-                const untemplate = new DOMParser().parseFromString(template.trim().replace(/^<template>/i, "").replace(/<\/template>$/i, ""), "text/html");
-                const unexport = new Function(script.trim().replace(/^(export|module).*(?=\{)/i, "return"));
+                const dom = new DOMParser().parseFromString(template.trim().replace(/^<template>/i, "").replace(/<\/template>$/i, ""), "text/html");
+                const mixin = new Function(script.trim().replace(/^(export|module).*(?={)/i, "return"));
+                const css = dom.createElement("style");
 
                 if(template && style){
-                    const _style = document.createElement("style");
-
                     if(style.getAttributeNames().some(attribute => attribute === "scoped")){
                         const scope = Array.from(crypto.getRandomValues(new Uint8Array(6))).map(byte => byte.toString(16)).join("");
                         const selectors = Array.from(new Set(style.innerText.match(/\.[a-zA-Z_][a-zA-Z0-9_\-]*/ig)));
@@ -90,26 +89,27 @@
                         for(const selector of selectors){
                             const undot = selector.replace(/^\./, "");
 
-                            for(const {classList} of untemplate.body.getElementsByClassName(undot)){
+                            for(const {classList} of dom.body.getElementsByClassName(undot)){
                                 classList.replace(undot, `${undot}_${scope}`);
                             }
                         }
 
-                        _style.innerText = selectors.reduce((style, selector) => style.replace(new RegExp(selector, "ig"), `${selector}_${scope}`), style.innerText);
-                        document.head.appendChild(_style);
+                        css.innerText = selectors.reduce((style, selector) => style.replace(new RegExp(selector, "ig"), `${selector}_${scope}`), style.innerText);
                     }
                     else{
-                        _style.innerText = style.innerText;
-                        document.head.appendChild(_style);
+                        css.innerText = style.innerText;
                     }
                 }
 
                 return {
                     template(){
-                        return template ? untemplate.body.innerHTML : template;
+                        return template ? dom.body.innerHTML : "";
                     },
                     script(){
-                        return script ? unexport() : {};
+                        return script ? mixin() : {};
+                    },
+                    style(){
+                        return style ? css.innerText : "";
                     }
                 };
             }
@@ -139,10 +139,16 @@
                 el: "#vue",
                 vuetify: new Vuetify(),
 
+                data(){
+                    return {
+                        nav: false
+                    };
+                },
+
                 methods: {
-                    ...Vuex.mapMutations([
-                        "toggleNav"
-                    ])
+                    toggleNav(state){
+                        this.nav = state;
+                    }
                 },
 
                 router: new VueRouter({
@@ -151,6 +157,11 @@
                             path: virtual,
                             async component(res){
                                 const {data} = await loadComponent(`${physical}.vue`);
+
+                                const style = document.createElement("style");
+                                style.innerText = data.style();
+                                document.head.appendChild(style);
+
                                 res({
                                     template: data.template(),
                                     mixins: [data.script()]
@@ -158,20 +169,6 @@
                             }
                         };
                     })
-                }),
-
-                store: new Vuex.Store({
-                    state(){
-                        return {
-                            nav: false
-                        };
-                    },
-
-                    mutations: {
-                        toggleNav(state, payload){
-                            state.nav = payload;
-                        }
-                    }
                 })
             });
         })();
