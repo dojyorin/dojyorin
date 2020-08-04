@@ -74,13 +74,14 @@
                 const component = new DOMParser().parseFromString(data, "text/html");
 
                 const template = component.head.getElementsByTagName("template")[0]?.innerHTML || "";
-                const script = component.head.getElementsByTagName("script")[0]?.innerText;
+                const script = component.head.getElementsByTagName("script")[0]?.innerText || "";
                 const style = component.head.getElementsByTagName("style")[0];
 
                 const untemplate = new DOMParser().parseFromString(template.trim().replace(/^<template>/i, "").replace(/<\/template>$/i, ""), "text/html");
+                const unexport = new Function(script.trim().replace(/^(export|module).*(?=\{)/i, "return"));
 
-                if(style){
-                    const styles = document.createElement("style");
+                if(template && style){
+                    const _style = document.createElement("style");
 
                     if(style.getAttributeNames().some(attribute => attribute === "scoped")){
                         const scope = Array.from(crypto.getRandomValues(new Uint8Array(6))).map(byte => byte.toString(16)).join("");
@@ -88,26 +89,27 @@
 
                         for(const selector of selectors){
                             const undot = selector.replace(/^\./, "");
+
                             for(const {classList} of untemplate.body.getElementsByClassName(undot)){
                                 classList.replace(undot, `${undot}_${scope}`);
                             }
                         }
 
-                        styles.innerText = selectors.reduce((style, selector) => style.replace(new RegExp(selector, "ig"), `${selector}_${scope}`), style.innerText);
-                        document.head.appendChild(styles);
+                        _style.innerText = selectors.reduce((style, selector) => style.replace(new RegExp(selector, "ig"), `${selector}_${scope}`), style.innerText);
+                        document.head.appendChild(_style);
                     }
                     else{
-                        styles.innerText = style.innerText;
-                        document.head.appendChild(styles);
+                        _style.innerText = style.innerText;
+                        document.head.appendChild(_style);
                     }
                 }
 
                 return {
                     template(){
-                        return template ? `<template>${untemplate.body.innerHTML}</template>` : "";
+                        return template ? untemplate.body.innerHTML : template;
                     },
                     script(){
-                        return script ? new Function(script.trim().replace(/^(export\s+default|module\.exports\s*?=)\s*/i, "return"))() : {};
+                        return script ? unexport() : {};
                     }
                 };
             }
