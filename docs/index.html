@@ -77,7 +77,7 @@
                 const script = component.head.getElementsByTagName("script")[0]?.innerText || "";
                 const style = component.head.getElementsByTagName("style")[0];
 
-                const mixin = new Function(script.trim().replace(/^(export|module).*(?={)/i, "return"));
+                const mixin = new Function(script.trim().replace(/^(export|module).*?(?={)/i, "return"));
                 let body = template.trim().replace(/^<template>/i, "").replace(/<\/template>$/i, "");
                 let css = "";
 
