@@ -34,8 +34,7 @@
                 "with": {
                     "github_token": "${{secrets.GITHUB_TOKEN}}",
                     "publish_branch": "master",
-                    "publish_dir": "./.nuxt",
-                    "destination_dir": "docs"
+                    "publish_dir": "./.nuxt"
                 }
             }]
         }
