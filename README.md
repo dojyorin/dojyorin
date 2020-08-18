@@ -8,6 +8,4 @@
 
 **Portfolio**
 
-![deploy](https://github.com/dojyorin/dojyorin/workflows/Build%20and%20Deploy%20GitHub%20Pages/badge.svg?branch=master)
-
-- [AboutMe](https://dojyorin.github.io/dojyorin) ... WIP!!
+- [AboutMe](https://dojyorin.github.io/profile)
