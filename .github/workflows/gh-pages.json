@@ -24,17 +24,17 @@
                     "node-version": "14.x"
                 }
             }, {
-                "name": "NPM Install",
+                "name": "Install NPM",
                 "run": "npm i -D"
             }, {
-                "name": "Nuxt Build",
+                "name": "Build Nuxt",
                 "run": "npm run generate"
             }, {
-                "name": "Deploy",
+                "name": "Deploy Pages",
                 "uses": "peaceiris/actions-gh-pages@v3",
                 "with": {
                     "github_token": "${{secrets.GITHUB_TOKEN}}",
-                    "publish_dir": "./.nuxt"
+                    "publish_dir": "./dist"
                 }
             }]
         }
