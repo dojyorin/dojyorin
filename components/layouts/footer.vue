@@ -1,3 +1,3 @@
 <template>
-    <v-footer></v-footer>
+<v-footer></v-footer>
 </template>
