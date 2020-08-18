@@ -5,6 +5,22 @@ const repository = "dojyorin";
 export default {
     mode: "universal",
     target: "static",
+    components: true,
+    plugins: [],
+    modules: [
+        "nuxt-webfontloader"
+    ],
+    buildModules: [
+        ["@nuxtjs/vuetify", {
+            defaultAssets: {
+                font: {
+                    family: "M PLUS 1p"
+                },
+                icons: "mdi"
+            }
+        }],
+    ],
+    build: {},
     router: {
         base: `/${repository}`
     },
@@ -28,14 +44,6 @@ export default {
         }]
     },
     css: [],
-    plugins: [],
-    components: true,
-    buildModules: [
-        ["@nuxtjs/vuetify", {
-            defaultAssets: true
-        }],
-    ],
-    modules: [],
     vuetify: {
         customVariables: [],
         theme: {
@@ -53,5 +61,12 @@ export default {
             }
         }
     },
-    build: {}
+    webfontloader: {
+        google: {
+            families: [
+                "M+PLUS+1p:japanese",
+                "Kosugi:japanese"
+            ]
+        }
+    }
 };
