@@ -7,8 +7,8 @@
   "scripts": {
     "actions": "npx json2yaml  .\\.github\\workflows\\gh-pages.json > .\\.github\\workflows\\gh-pages.yaml",
     "dev": "npx nuxt",
-    "build": "npx nuxt build",
     "start": "npx nuxt start",
+    "build": "npx nuxt build",
     "generate": "npx nuxt generate"
   },
   "repository": {

@@ -11,6 +11,7 @@
         "deploy": {
             "runs-on": "ubuntu-20.04",
             "steps": [{
+                "name": "Run Checkout",
                 "uses": "actions/checkout@v2",
                 "with": {
                     "submodules": true,
@@ -27,7 +28,7 @@
                 "run": "npm i -D"
             }, {
                 "name": "Nuxt Build",
-                "run": "npm run build"
+                "run": "npm run generate"
             }, {
                 "name": "Deploy",
                 "uses": "peaceiris/actions-gh-pages@v3",

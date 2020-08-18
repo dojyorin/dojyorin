@@ -22,7 +22,7 @@ export default {
     ],
     build: {},
     router: {
-        base: `/${repository}`
+        base: `/${repository}/`
     },
     head: {
         titleTemplate: `%s - ${process.env.npm_package_name}`,
