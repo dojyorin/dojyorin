@@ -5,7 +5,7 @@
   "author": "dojyorin",
   "license": "MIT",
   "scripts": {
-    "actions": "npx json2yaml  .\\.github\\workflows\\gh-pages.json > .\\.github\\workflows\\gh-pages.yaml",
+    "actions": "npx json2yaml .\\.github\\workflows\\gh-pages.json > .\\.github\\workflows\\gh-pages.yaml",
     "dev": "npx nuxt",
     "start": "npx nuxt start",
     "build": "npx nuxt build",
