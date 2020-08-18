@@ -53,6 +53,5 @@ export default {
             }
         }
     },
-    build: {},
-    buildDir: "docs"
+    build: {}
 };

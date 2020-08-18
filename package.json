@@ -5,6 +5,7 @@
   "author": "dojyorin",
   "license": "MIT",
   "scripts": {
+    "actions": "npx json2yaml  .\\.github\\workflows\\gh-pages.json > .\\.github\\workflows\\gh-pages.yaml",
     "dev": "npx nuxt",
     "build": "npx nuxt build",
     "start": "npx nuxt start",
@@ -22,7 +23,8 @@
     "nuxt": "2.14.3"
   },
   "devDependencies": {
-    "npm-check-updates": "7.1.1",
-    "@nuxtjs/vuetify": "2.0.0-beta.2"
+    "@nuxtjs/vuetify": "2.0.0-beta.2",
+    "json2yaml": "^1.1.0",
+    "npm-check-updates": "7.1.1"
   }
 }
