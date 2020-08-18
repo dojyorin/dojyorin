@@ -2,23 +2,12 @@
 たいしたものはないけど、ゆっくりしていってね！
 
 **SNS/Blog**
+
 - [Twitter](https://twitter.com/dojyorin)
 - [Qiita](https://qiita.com/dojyorin)
 
 **Portfolio**
+
+![Build and Deploy GitHub Pages](https://github.com/dojyorin/dojyorin/workflows/Build%20and%20Deploy%20GitHub%20Pages/badge.svg?branch=master)
+
 - [AboutMe](https://dojyorin.github.io/dojyorin) ... WIP!!
-
-<!--
-**dojyorin/dojyorin** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
