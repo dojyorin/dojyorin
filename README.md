@@ -8,4 +8,4 @@
 
 **Portfolio**
 
-- [AboutMe](https://dojyorin.github.io/profile)
+- [About Me](https://dojyorin.github.io/dojyorin)
