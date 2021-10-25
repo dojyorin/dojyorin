@@ -1,11 +1,8 @@
-# ようこそ！
-たいしたものはないけど、ゆっくりしていってね！
+# dojyorin
+好奇心120%駆動の独学と趣味でお送りします。
 
-**SNS/Blog**
+たいしたものはつくってません。
 
-- [Twitter](https://twitter.com/dojyorin)
-- [Qiita](https://qiita.com/dojyorin)
-
-**Portfolio**
-
-- [About Me](https://dojyorin.github.io/dojyorin)
+**SNS/BLOG**
+- https://twitter.com/dojyorin
+- https://qiita.com/dojyorin
