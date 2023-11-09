@@ -8,13 +8,10 @@ I'm curiosity driven development and self taught.
 ### Interested
 - JavaScript/TypeScript
     - Deno
-    - TC39 Proposal
     - V8
-    - WebAPI
-        - WebCrypto
-        - WebSocket
-        - WebGPU
-        - WebUSB
+    - TC39 Proposal
+    - Vue.js
+    - WebAPI (WebCrypto, WebSocket, WebGPU, WebUSB, ...etc)
 - C++ (Embedded)
     - Cortex-M
     - Arduino
