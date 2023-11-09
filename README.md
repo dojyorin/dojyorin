@@ -1,8 +1,24 @@
-# dojyorin
-好奇心120%駆動の独学と趣味でお送りします。
+# **dojyorin**
+I'm curiosity driven development and self taught.
 
-たいしたものはつくってません。
-
-**SNS/BLOG**
+## SNS/BLOG
 - https://twitter.com/dojyorin
 - https://qiita.com/dojyorin
+
+## Interested
+- JavaScript/TypeScript
+    - Deno
+    - TC39 Proposal
+    - V8
+    - WebAPI
+        - WebCrypto
+        - WebSocket
+        - WebGPU
+        - WebUSB
+- C++ (Embedded)
+    - Cortex-M
+    - Arduino
+    - STM32
+- ShellScript
+- Docker
+- VSCode
