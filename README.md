@@ -1,11 +1,11 @@
 # **dojyorin**
 I'm curiosity driven development and self taught.
 
-## SNS/BLOG
+### SNS/BLOG
 - https://twitter.com/dojyorin
 - https://qiita.com/dojyorin
 
-## Interested
+### Interested
 - JavaScript/TypeScript
     - Deno
     - TC39 Proposal
